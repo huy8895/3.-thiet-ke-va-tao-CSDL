@@ -16,6 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `OrderDetails`
+--
+
+DROP TABLE IF EXISTS `OrderDetails`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `OrderDetails` (
+  `productCode` varchar(15) NOT NULL,
+  `orderNumber` int NOT NULL,
+  KEY `productCode` (`productCode`),
+  KEY `orderNumber` (`orderNumber`),
+  CONSTRAINT `OrderDetails_ibfk_1` FOREIGN KEY (`productCode`) REFERENCES `products` (`productCode`),
+  CONSTRAINT `OrderDetails_ibfk_2` FOREIGN KEY (`orderNumber`) REFERENCES `orders` (`orderNumber`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OrderDetails`
+--
+
+LOCK TABLES `OrderDetails` WRITE;
+/*!40000 ALTER TABLE `OrderDetails` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OrderDetails` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `customers`
 --
 
@@ -33,7 +59,11 @@ CREATE TABLE `customers` (
   `state` varchar(50) NOT NULL,
   `postalCode` varchar(15) NOT NULL,
   `country` varchar(50) NOT NULL,
-  `creditLimit` double DEFAULT NULL
+  `creditLimit` double DEFAULT NULL,
+  `salesRepEmployeeNumberemployees` int NOT NULL,
+  PRIMARY KEY (`customerNumber`),
+  KEY `salesRepEmployeeNumberemployees` (`salesRepEmployeeNumberemployees`),
+  CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`salesRepEmployeeNumberemployees`) REFERENCES `employees` (`employeeNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,7 +89,13 @@ CREATE TABLE `employees` (
   `firstName` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `jobTitle` varchar(50) NOT NULL,
-  PRIMARY KEY (`employeeNumber`)
+  `reportTo` int NOT NULL,
+  `officeCode` int NOT NULL,
+  PRIMARY KEY (`employeeNumber`),
+  KEY `reportTo` (`reportTo`),
+  KEY `officeCode` (`officeCode`),
+  CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`reportTo`) REFERENCES `employees` (`employeeNumber`),
+  CONSTRAINT `employees_ibfk_2` FOREIGN KEY (`officeCode`) REFERENCES `offices` (`officeCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -117,10 +153,11 @@ CREATE TABLE `orders` (
   `comments` varchar(45) DEFAULT NULL,
   `quantityOrdered` int NOT NULL,
   `priceEach` double NOT NULL,
-  `customerNumber` varchar(45) DEFAULT NULL,
+  `customerNumber` int NOT NULL,
   PRIMARY KEY (`orderNumber`),
   UNIQUE KEY `orderNumber_UNIQUE` (`orderNumber`),
-  KEY `customerNumber_idx` (`customerNumber`)
+  KEY `customerNumber_idx` (`customerNumber`),
+  CONSTRAINT `customerNumber` FOREIGN KEY (`customerNumber`) REFERENCES `customers` (`customerNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -145,7 +182,10 @@ CREATE TABLE `payments` (
   `checkNumber` varchar(50) NOT NULL,
   `paymentDate` date NOT NULL,
   `amount` double NOT NULL,
-  PRIMARY KEY (`idpayments`)
+  `customerNumber` int NOT NULL,
+  PRIMARY KEY (`idpayments`),
+  KEY `customerNumber` (`customerNumber`),
+  CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`customerNumber`) REFERENCES `customers` (`customerNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -198,7 +238,10 @@ CREATE TABLE `products` (
   `quantityInStock` int NOT NULL,
   `buyPrice` double NOT NULL,
   `MSRP` double NOT NULL,
-  PRIMARY KEY (`productCode`)
+  `productLine` varchar(50) NOT NULL,
+  PRIMARY KEY (`productCode`),
+  KEY `productLine` (`productLine`),
+  CONSTRAINT `products_ibfk_1` FOREIGN KEY (`productLine`) REFERENCES `productlines` (`productLine`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -220,4 +263,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-15 11:01:09
+-- Dump completed on 2020-08-15 15:38:05
