@@ -147,11 +147,24 @@ set Status = (
 
 select * from Student;
 
+#12Hiển thị danh sách học viên và điểm thi,
+# dánh sách phải sắp xếp tăng dần theo ngày thi
 
+select Student.Name , Test.Name, Mark,Date from StudentTest
+left join (Student , Test)
+    on Student.RN = StudentTest.RN
+        and StudentTest.TestID = Test.testID
+order by Date;
 
+#13.  Hiển thị các thông tin sinh viên có tên bắt đầu bằng ký tự ‘T’
+# và điểm thi trung bình >4.5. Thông tin bao gồm Tên sinh viên, tuổi, điểm trung bình
 
-
-
+(select Student.Name,Student.Age ,AVG(Mark) as Average from Student,StudentTest
+where StudentTest.RN = Student.RN
+  and (Name like 'T%')
+  and (select AVG(Mark) from StudentTest
+        where Student.RN = StudentTest.RN group by Name) > 4.5
+group by Name,Age);
 
 
 
