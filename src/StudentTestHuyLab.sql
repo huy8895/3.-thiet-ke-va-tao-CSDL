@@ -133,6 +133,24 @@ on Student.RN = StudentTest.RN and StudentTest.TestID = Test.testID;
 update Student
 set Age = Age + 1;
 
+#10.Thêm trường tên là Status có kiểu Varchar(10) vào bảng Student.
+
+alter table Student
+add Status varchar(10);
+
+#11 cap nhat status old and young 30; va hien thi bang student
+update Student
+set Status = (
+    case    when Age < 30 then 'young'
+            when Age > 30 then 'old'
+     end);
+
+select * from Student;
+
+
+
+
+
 
 
 
