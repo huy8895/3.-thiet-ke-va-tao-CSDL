@@ -116,9 +116,7 @@ limit 1;
 
 #7. Hiển thị điểm thi cao nhất của từng môn học. // chua lam duoc
 select Test.Name, Mark as 'Max Mark' from StudentTest, Test
-where StudentTest.TestID = Test.testID
-and Mark > (select AVG(Mark) from StudentTest
-    group by Test.Name);
+where StudentTest.TestID = Test.testID;
 
 #8. Hiển thị danh sách tất cả các học viên và môn học mà các học viên
 # đó đã thi nếu học viên chưa thi môn nào thì phần tên môn học để Null:
@@ -159,14 +157,27 @@ order by Date;
 #13.  Hiển thị các thông tin sinh viên có tên bắt đầu bằng ký tự ‘T’
 # và điểm thi trung bình >4.5. Thông tin bao gồm Tên sinh viên, tuổi, điểm trung bình
 
-(select Student.Name,Student.Age ,AVG(Mark) as Average from Student,StudentTest
+select Student.Name,Student.Age ,AVG(Mark) as Average from Student,StudentTest
 where StudentTest.RN = Student.RN
   and (Name like 'T%')
   and (select AVG(Mark) from StudentTest
         where Student.RN = StudentTest.RN group by Name) > 4.5
-group by Name,Age);
+group by Name,Age;
 
 
+#14. Hiển thị các thông tin sinh viên (Mã, tên, tuổi, điểm trung bình, xếp hạng).
+# diem trung binh cao nhat xep hang 1;
+#code mau~
+select AVG(Mark), @xepHang := @xepHang + 1 xepHang
+from StudentTest,Student,(SELECT @xepHang := 0) m
+where Student.RN = StudentTest.RN
+group by Name;
+
+#code that
+select Student.RN, Student.Name,Student.Age,AVG(Mark) as diemTrungBinh,@xepHang := @xepHang + 1 xepHang
+from Student,(SELECT @xepHang := 0) m,StudentTest
+where Student.RN = StudentTest.RN
+group by Name,Student.RN,Age;
 
 
 
