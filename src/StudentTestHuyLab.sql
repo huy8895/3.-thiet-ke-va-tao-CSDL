@@ -180,6 +180,10 @@ where Student.RN = StudentTest.RN
 group by Name,Student.RN,Age;
 
 
+alter table Student
+modify Name NVARCHAR(max);
+
+
 
 
 
