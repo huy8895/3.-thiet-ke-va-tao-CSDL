@@ -30,4 +30,7 @@ create table BorrowOrder(
     constraint primary key (bookCode,studentID)
 );
 
-create table
+create table address(
+    id int auto_increment primary key ;
+
+)

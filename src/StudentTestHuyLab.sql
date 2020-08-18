@@ -115,8 +115,11 @@ order by Average desc
 limit 1;
 
 #7. Hiển thị điểm thi cao nhất của từng môn học. // chua lam duoc
-select Test.Name, Mark as 'Max Mark' from StudentTest, Test
-where StudentTest.TestID = Test.testID;
+select Test.Name,Max(Mark) from StudentTest
+    left join Test
+        on StudentTest.TestID = Test.testID
+group by Test.Name
+order by Name;
 
 #8. Hiển thị danh sách tất cả các học viên và môn học mà các học viên
 # đó đã thi nếu học viên chưa thi môn nào thì phần tên môn học để Null:
@@ -179,9 +182,24 @@ from Student,(SELECT @xepHang := 0) m,StudentTest
 where Student.RN = StudentTest.RN
 group by Name,Student.RN,Age;
 
-
 alter table Student
-modify Name NVARCHAR(max);
+modify Name nvarchar(500);
+
+select * from Student;
+update Student
+set Name = 'Dan Truong' where RN =4 ;
+
+update Student
+set Name = 'Nguyen Hong Ha' where RN =1;
+update Student
+set Name = 'Truong Ngoc Anh' where RN =2;
+update Student
+set Name = 'Tuan Minh' where RN =3;
+update Student
+set Name = 'Dan Truong' where RN =4;
+
+
+
 
 
 
