@@ -198,6 +198,10 @@ set Name = 'Tuan Minh' where RN =3;
 update Student
 set Name = 'Dan Truong' where RN =4;
 
+use StudentTest;
+select length(Date) from StudentTest;
+
+
 
 
 
