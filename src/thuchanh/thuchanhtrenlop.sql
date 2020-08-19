@@ -32,11 +32,28 @@ drop table hoadonCT;
 
 show tables ;
 
-insert into khachhang values
-(1,'linh'),
-(2,'dung'),
-(3,'binh'),
-(4,'chau');
+insert into 4_baitapluyentap.khachhang (makhachhang, tenkhachhang) values (1, 'linh');
+insert into 4_baitapluyentap.khachhang (makhachhang, tenkhachhang) values (2, 'dung');
+insert into 4_baitapluyentap.khachhang (makhachhang, tenkhachhang) values (3, 'binh');
+insert into 4_baitapluyentap.khachhang (makhachhang, tenkhachhang) values (4, 'chau');
+
+
+insert into 4_baitapluyentap.hoadon (maHD, maKH, ngaymua) values (1, 1, '2020-08-19');
+insert into 4_baitapluyentap.hoadon (maHD, maKH, ngaymua) values (2, 2, '2020-08-18');
+insert into 4_baitapluyentap.hoadon (maHD, maKH, ngaymua) values (3, 4, '2020-08-18');
+insert into 4_baitapluyentap.hoadon (maHD, maKH, ngaymua) values (4, 4, '2020-08-18');
+insert into 4_baitapluyentap.hoadon (maHD, maKH, ngaymua) values (5, 4, '2020-08-18');
+
+insert into 4_baitapluyentap.hoadonCT (maSP, maHD, soluong, dongia) values (2, 1, 4, 1000);
+insert into 4_baitapluyentap.hoadonCT (maSP, maHD, soluong, dongia) values (1, 1, 1, 3000);
+insert into 4_baitapluyentap.hoadonCT (maSP, maHD, soluong, dongia) values (1, 2, 3, 2000);
+insert into 4_baitapluyentap.hoadonCT (maSP, maHD, soluong, dongia) values (1, 3, 2, 1000);
+insert into 4_baitapluyentap.hoadonCT (maSP, maHD, soluong, dongia) values (1, 4, 5, 1000);
+insert into 4_baitapluyentap.hoadonCT (maSP, maHD, soluong, dongia) values (1, 5, 5, 1000);
+
+insert into 4_baitapluyentap.sanpham (masanpham, ten, gia) values (1, 'dien thoai', null);
+insert into 4_baitapluyentap.sanpham (masanpham, ten, gia) values (2, 'may tinh', null);
+
 
 
 select * from sanpham
