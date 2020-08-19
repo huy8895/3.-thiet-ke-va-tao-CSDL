@@ -68,3 +68,5 @@ select sum(soluong * dongia) from hoadonCT
 join hoadon h on h.maHD = hoadonCT.maHD
 where ngaymua = date(now()) ;
 
+select tenkhachhang from khachhang
+where makhachhang not in (select maKH from hoadon);
