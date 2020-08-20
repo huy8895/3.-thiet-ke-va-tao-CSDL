@@ -10,11 +10,13 @@ call findAllCustomers();
 
 drop procedure findAllCustomers;
 
-delimiter //
+
 create procedure findAllCustomers()
 begin
     select * from customers
         where customerNumber = 175;
-end //
+end ;
+
+drop procedure findAllCustomers;
 
 call findAllCustomers();
