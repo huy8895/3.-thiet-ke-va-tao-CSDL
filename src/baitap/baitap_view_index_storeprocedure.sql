@@ -54,4 +54,50 @@ from products;
 
 select * from view_products;
 
-alter view view_products
+alter view view_products as
+    select * from products;
+
+drop view view_products;
+
+insert into products (description) values ('phone 1');
+insert into products (description) values ('phone 2');
+insert into products (description) values ('phone 3');
+
+delete from products
+    where description = 'phone 1' or
+          description = 'phone 2' or
+          description = 'phone 3';
+
+delimiter //
+create procedure get_infoProduct ()
+begin
+    select description from products;
+end //
+
+call get_infoProduct();
+
+update products
+set description = 'this is phone 3'
+where Code = 'A3';
+
+delimiter //
+create procedure edit_byID(in id_in int,in name_in varchar(15))
+begin
+    update products set Name = name_in
+    where id = id_in;
+end //
+delimiter ;
+
+select * from products;
+
+call edit_byID(3,'phone 3 edited');
+
+delimiter //
+create procedure remove_byID(in id_in int)
+begin
+    delete from products
+        where id = id_in;
+end //
+delimiter ;
+
+call remove_byID(4);

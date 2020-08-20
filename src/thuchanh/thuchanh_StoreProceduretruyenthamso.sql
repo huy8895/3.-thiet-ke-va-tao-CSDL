@@ -28,14 +28,12 @@ select @total;
 #tham so loai INOUT
 
 delimiter //
-create procedure setCounter(
-inout couter int,
-in inc int
-)
-
+create procedure setCounter(inout couter int,
+                            in inc int)
 begin
     set couter = couter + inc;
 end //
+delimiter ;
 
 set @couter = 1;
 
