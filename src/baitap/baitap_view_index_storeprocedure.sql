@@ -101,3 +101,19 @@ end //
 delimiter ;
 
 call remove_byID(4);
+
+show index from products;
+
+
+use classicmodels;
+show keys from customers;
+
+alter table customers
+    drop index customerName;
+
+alter table customers
+add index (contactLastName,contactFirstName);
+
+explain select * from customers
+where contactLastName = 'Schmitt'
+and contactFirstName = 'Carine';

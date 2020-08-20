@@ -21,6 +21,6 @@ begin
 end //
 delimiter ;
 
-call sp_checkvl(50,@isPresent);
+call sp_checkvl(50,@haha);
 
-select @isPresent;
+select @haha;

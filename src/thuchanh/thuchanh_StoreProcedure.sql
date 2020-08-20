@@ -20,3 +20,4 @@ end ;
 drop procedure findAllCustomers;
 
 call findAllCustomers();
+
